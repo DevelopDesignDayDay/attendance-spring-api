@@ -1,6 +1,5 @@
 package com.example.attendanceapimono.controller
 
-import com.example.attendanceapimono.exception.JavaTestException
 import com.example.attendanceapimono.exception.KotlinTestException
 import com.example.attendanceapimono.util.log
 import com.example.attendanceapimono.vo.ErrorResponse
@@ -15,10 +14,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class ExceptionController {
     private val errorMaps: Map<Class<*>, ErrorResponse> = mapOf(
         KotlinTestException::class.java to ErrorResponse("hello test kotlin error", -999999),
-        JavaTestException::class.java to ErrorResponse( "hello test java error"),
     )
 
-    @ExceptionHandler(value = [KotlinTestException::class, JavaTestException::class])
+    @ExceptionHandler(value = [KotlinTestException::class])
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
     fun testError(e: Exception) = errorMaps[e.javaClass]!!
 

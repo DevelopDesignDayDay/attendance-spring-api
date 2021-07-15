@@ -42,6 +42,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.springdoc:springdoc-openapi-webflux-ui:1.5.9")
+    implementation("org.springdoc:springdoc-openapi-data-rest:1.5.9")
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.5.9")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
