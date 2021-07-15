@@ -19,7 +19,7 @@ class HelloWorldController {
 
     @Operation(
         summary = "Hello World",
-        description = "Response \"hello stock folio api mono world\"",
+        description = "Response \"hello ddd attendance api mono world\"",
     )
     @ApiResponse(
         responseCode = "200",
@@ -28,7 +28,7 @@ class HelloWorldController {
             Content(
                 mediaType = MediaType.APPLICATION_JSON_VALUE,
                 schema = Schema(implementation = String::class),
-                examples = [ExampleObject("\"hello stock folio api mono world\"")]
+                examples = [ExampleObject("\"hello ddd attendance api mono world\"")]
             )
         ]
     )
@@ -37,7 +37,7 @@ class HelloWorldController {
         return Mono.just(
             ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body("\"hello stock folio api mono world\"")
+                .body("\"hello ddd attendance api mono world\"")
         )
     }
 
