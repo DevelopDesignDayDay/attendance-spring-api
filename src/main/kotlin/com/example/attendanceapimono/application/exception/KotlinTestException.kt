@@ -1,3 +1,3 @@
-package com.example.attendanceapimono.exception
+package com.example.attendanceapimono.application.exception
 
 class KotlinTestException : RuntimeException("kotlin test exception")
