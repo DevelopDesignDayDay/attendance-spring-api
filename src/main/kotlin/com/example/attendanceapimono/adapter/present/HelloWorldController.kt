@@ -1,6 +1,6 @@
-package com.example.attendanceapimono.controller
+package com.example.attendanceapimono.adapter.present
 
-import com.example.attendanceapimono.exception.KotlinTestException
+import com.example.attendanceapimono.application.exception.KotlinTestException
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.ExampleObject

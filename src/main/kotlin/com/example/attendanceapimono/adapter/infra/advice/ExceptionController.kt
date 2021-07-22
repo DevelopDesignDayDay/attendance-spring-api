@@ -1,8 +1,7 @@
-package com.example.attendanceapimono.controller
+package com.example.attendanceapimono.adapter.infra.advice
 
-import com.example.attendanceapimono.exception.KotlinTestException
+import com.example.attendanceapimono.application.exception.KotlinTestException
 import com.example.attendanceapimono.util.log
-import com.example.attendanceapimono.vo.ErrorResponse
 import lombok.extern.slf4j.Slf4j
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
