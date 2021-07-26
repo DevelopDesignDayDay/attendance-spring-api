@@ -28,6 +28,17 @@ class TokenProvider(val authConfig: AuthProperties) {
             .compact();
     }
 
+    fun getUserId(token: String): UUID {
+        val claims: Claims  = Jwts
+            .parserBuilder()
+            .setSigningKey(this.key)
+            .build()
+            .parseClaimsJws(token)
+            .body;
+
+        return UUID.fromString(claims.subject);
+    }
+
     fun validateToken(authToken: String): Boolean {
         try {
             Jwts.parserBuilder().setSigningKey(this.key).build().parseClaimsJws(authToken);
