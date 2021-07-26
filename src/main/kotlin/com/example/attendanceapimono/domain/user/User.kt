@@ -21,7 +21,7 @@ enum class UserPosition {
 
 @Entity
 @Table(name = "users")
-class User(
+data class User(
     @Id
     @Type(type="uuid-char")
     @Column(columnDefinition = "CHAR(36)")
@@ -57,9 +57,9 @@ class User(
     @Column(nullable = false)
     var updatedAt: LocalDateTime,
 
-    @OneToMany(mappedBy = "user")
-    val socialProviders: List<SocialProvider> = arrayListOf(),
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    val socialProviders: MutableList<SocialProvider> = arrayListOf(),
 
-    @OneToMany(mappedBy = "user")
-    val attendances: List<Attendance> = arrayListOf()
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    val attendances: MutableList<Attendance> = arrayListOf()
 )

@@ -16,12 +16,12 @@ class Attendance(
     val id: UUID,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id") // user.id
-    var user: User?,
+    @JoinColumn(name = "user_id", nullable = false) // user.id
+    var user: User,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id") // event.id
-    var event: Event?,
+    @JoinColumn(name = "event_id", nullable = false)
+    var event: Event,
 
     @Column(nullable = false)
     val createdAt: LocalDateTime
