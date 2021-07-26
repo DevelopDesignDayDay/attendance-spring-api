@@ -44,6 +44,6 @@ class Event(
     @Column(nullable = false)
     val updatedAt: LocalDateTime,
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
     val attendances: List<Attendance> = arrayListOf()
 )
