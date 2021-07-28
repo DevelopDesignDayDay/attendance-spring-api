@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import org.springframework.web.bind.support.WebExchangeBindException
 import org.springframework.web.server.ServerWebInputException
+import reactor.core.publisher.Mono
 import java.lang.RuntimeException
 
 class BadRequestBodyException : RuntimeException {
@@ -15,11 +16,17 @@ class BadRequestBodyException : RuntimeException {
 }
 
 fun <T> Flow<T>.handleValidationCatch(): Flow<T> {
-    return catch {
-        when (it) {
-            is WebExchangeBindException->throw BadRequestBodyException(it)
-            is ServerWebInputException->throw BadRequestBodyException(it)
-            else->throw it
-        }
+    return catch { handle(it) }
+}
+
+fun <T> Mono<T>.handleValidationCatch(): Mono<T> {
+    return doOnError(::handle)
+}
+
+private fun handle(it: Throwable) {
+    when (it) {
+        is WebExchangeBindException->throw BadRequestBodyException(it)
+        is ServerWebInputException->throw BadRequestBodyException(it)
+        else->throw it
     }
 }
