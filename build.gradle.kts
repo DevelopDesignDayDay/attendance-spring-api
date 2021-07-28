@@ -82,8 +82,8 @@ dependencies {
 
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.6")
 
-//    implementation("org.springframework.boot:spring-boot-starter-security")
-//    testImplementation("org.springframework.security:spring-security-test")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
     implementation(group= "io.jsonwebtoken", name= "jjwt-api", version= "0.11.2")
     runtimeOnly(group= "io.jsonwebtoken", name= "jjwt-impl", version= "0.11.2")
     runtimeOnly(group= "io.jsonwebtoken", name= "jjwt-jackson", version= "0.11.2")
