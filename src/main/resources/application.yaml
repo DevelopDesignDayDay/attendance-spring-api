@@ -5,3 +5,12 @@ spring:
 springdoc:
   swagger-ui:
     path: /doc
+
+feign:
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+  okhttp:
+    enabled: true

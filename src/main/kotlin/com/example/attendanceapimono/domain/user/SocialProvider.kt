@@ -4,22 +4,14 @@ import java.io.Serializable
 import javax.persistence.*
 
 enum class SocialType {
-    GOOGLE
+    GOOGLE, APPLE
 }
 
 @Entity
 @Table(name = "social_providers")
-@IdClass(SocialProviderID::class)
 class SocialProvider(
-
-    @Id
-    @Column(length = 30, nullable = false)
-    val id: String,
-
-    @Id
-    @Enumerated(EnumType.STRING)
-    @Column(length = 10, nullable = false)
-    val type: SocialType,
+    @EmbeddedId
+    val id: SocialProviderID,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false) // user.id
@@ -27,7 +19,12 @@ class SocialProvider(
 )
 
 
-data class SocialProviderID(
+@Embeddable
+class SocialProviderID(
+    @Column(name = "id", length = 30, nullable = false)
     val id: String,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", length = 10, nullable = false)
     val type: SocialType,
 ) : Serializable

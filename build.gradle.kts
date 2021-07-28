@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     val kotlinVersion = "1.5.20"
-    id("org.springframework.boot") version "2.5.2"
+    id("org.springframework.boot") version "2.5.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
@@ -37,9 +37,14 @@ repositories {
     mavenCentral()
 }
 
+extra["springCloudVersion"] = "2020.0.3"
+
 dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("io.github.openfeign:feign-okhttp")
+    implementation("io.github.openfeign:feign-jackson:9.3.1")
 
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
@@ -65,8 +70,6 @@ dependencies {
     testAnnotationProcessor ("com.querydsl:querydsl-apt:$querydslVersion:jpa")
 
     runtimeOnly("mysql:mysql-connector-java")
-//    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
-//    implementation("com.zaxxer:HikariCP:5.0.0")
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
@@ -84,6 +87,12 @@ dependencies {
     implementation(group= "io.jsonwebtoken", name= "jjwt-api", version= "0.11.2")
     runtimeOnly(group= "io.jsonwebtoken", name= "jjwt-impl", version= "0.11.2")
     runtimeOnly(group= "io.jsonwebtoken", name= "jjwt-jackson", version= "0.11.2")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
 }
 
 val generatedSourcesDir = file("${buildDir}/generated/querydsl")
