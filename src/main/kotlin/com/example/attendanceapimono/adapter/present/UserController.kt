@@ -3,6 +3,7 @@ package com.example.attendanceapimono.adapter.present
 import com.example.attendanceapimono.adapter.present.api.UserAPI
 import com.example.attendanceapimono.application.UserService
 import com.example.attendanceapimono.application.dto.user.CreateUser
+import com.example.attendanceapimono.application.dto.user.SignIn
 import com.example.attendanceapimono.application.exception.handleValidationCatch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -20,8 +21,10 @@ class UserController(private val userService: UserService) : UserAPI {
             .awaitSingle()
     }
 
-    override suspend fun signIn() {
-         "sign in";
+    override suspend fun signIn(body: Mono<SignIn>) {
+         body.handleValidationCatch()
+             .map(userService::getUserBySocialToken)
+             .awaitSingle()
     }
 }
 

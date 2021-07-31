@@ -15,9 +15,9 @@ import javax.validation.constraints.NotEmpty
 @Schema(
     title = "로그인",
     description = "",
-    example = SignInBody.Example,
+    example = SignIn.Example,
 )
-data class SignInBody(
+data class SignIn(
     @Schema(description = "소셜 토큰")
     @field:NotEmpty
     val token: String,
