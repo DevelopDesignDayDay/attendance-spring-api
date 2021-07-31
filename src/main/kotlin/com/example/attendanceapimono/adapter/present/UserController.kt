@@ -19,6 +19,10 @@ class UserController(private val userService: UserService) : UserAPI {
             .map(userService::createUser)
             .awaitSingle()
     }
+
+    override suspend fun signIn() {
+         "sign in";
+    }
 }
 
 /*

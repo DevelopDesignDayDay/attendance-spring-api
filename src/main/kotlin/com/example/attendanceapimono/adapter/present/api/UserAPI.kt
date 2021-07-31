@@ -36,4 +36,15 @@ interface UserAPI {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user")
     suspend fun createUser(@Valid @RequestBody body: Mono<CreateUser>)
+
+    @Operation(
+        summary = "로그인",
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "로그인"
+    )
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/user/login")
+    suspend fun signIn()
 }

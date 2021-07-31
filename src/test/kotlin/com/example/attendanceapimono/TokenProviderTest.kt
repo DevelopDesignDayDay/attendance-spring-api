@@ -7,7 +7,7 @@ import java.util.*
 
 class TokenProviderTest {
     @Test
-    fun `Test JWT`() {
+    fun test() {
         val auth = AuthProperties("ekrjbgu3io4bg3794g53894bgerui3b24t8u3ib4gui3wb4gei9284bhg9834bgueirngndf", 3600000);
         val provider = TokenProvider(auth);
 
