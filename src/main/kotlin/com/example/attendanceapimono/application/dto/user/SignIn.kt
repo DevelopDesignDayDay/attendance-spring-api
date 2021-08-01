@@ -24,10 +24,6 @@ data class SignIn(
 
     @Schema(description = "소설 타입")
     val type: SocialType,
-
-    @Schema(description = "이메일 주소")
-    @field:Email
-    val email: String,
 ) {
 
     companion object {
