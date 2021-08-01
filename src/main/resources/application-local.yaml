@@ -16,5 +16,5 @@ spring:
       hibernate:
         format_sql: true
 jwt:
-  secret: ${JWT_SECRET}
+  secret: test4n23ub3n4uigb80hn08sdhncv803nf2308bn32g
   expires: ${JWT_EXPIRES}
