@@ -22,9 +22,10 @@ class UserController(private val userService: UserService) : UserAPI {
             .awaitSingle()
     }
 
-    override suspend fun signIn(body: Mono<SignIn>): Mono<TokenResponse> {
+    override suspend fun signIn(body: Mono<SignIn>): TokenResponse {
          return body.handleValidationCatch()
              .map(userService::getUserBySocialToken)
+             .awaitSingle()
     }
 }
 

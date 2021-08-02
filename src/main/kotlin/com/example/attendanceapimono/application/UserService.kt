@@ -52,6 +52,7 @@ class UserService(
         ).awaitAll()
     }
 
+    @Transactional
     fun getUserBySocialToken(dto: SignIn): TokenResponse {
         val socialInfo = getSocialInfo(dto.token, dto.type)
         val socialID = SocialProviderID(socialInfo.id, socialInfo.type)

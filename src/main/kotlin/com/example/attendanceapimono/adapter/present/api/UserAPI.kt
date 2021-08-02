@@ -49,5 +49,5 @@ interface UserAPI {
     )
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/user/login")
-    suspend fun signIn(@Valid @RequestBody body: Mono<SignIn>): Mono<TokenResponse>
+    suspend fun signIn(@Valid @RequestBody body: Mono<SignIn>): TokenResponse
 }
