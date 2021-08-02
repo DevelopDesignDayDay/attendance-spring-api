@@ -30,8 +30,25 @@ data class SignIn(
         const val Example = """
             {
                 "token": "social_token",
-                "type": "GOOGLE",
-                "email": "dddstudy1@gmail.com",
+                "type": "GOOGLE"
+            }
+        """
+    }
+}
+
+@Schema(
+    title = "로그인 Response",
+    description = "",
+    example = TokenResponse.Example,
+)
+data class TokenResponse(
+    @Schema(description = "JWT 토큰")
+    val token: String,
+) {
+    companion object {
+        const val Example = """
+            {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
             }
         """
     }

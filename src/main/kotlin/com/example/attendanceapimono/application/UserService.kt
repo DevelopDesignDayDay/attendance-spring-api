@@ -5,6 +5,7 @@ import com.example.attendanceapimono.adapter.infra.security.TokenProvider
 import com.example.attendanceapimono.adapter.infra.security.UserPrinciple
 import com.example.attendanceapimono.application.dto.user.CreateUser
 import com.example.attendanceapimono.application.dto.user.SignIn
+import com.example.attendanceapimono.application.dto.user.TokenResponse
 import com.example.attendanceapimono.domain.user.*
 import kotlinx.coroutines.*
 import org.springframework.beans.factory.annotation.Qualifier
@@ -51,23 +52,17 @@ class UserService(
         ).awaitAll()
     }
 
-    fun getUserBySocialToken(dto: SignIn) = runBlocking {
-        val result: Deferred<SocialProvider?> = async {
-            val socialInfo = getSocialInfo(dto.token, dto.type)
-            val socialID = SocialProviderID(socialInfo.id, socialInfo.type)
+    fun getUserBySocialToken(dto: SignIn): TokenResponse {
+        val socialInfo = getSocialInfo(dto.token, dto.type)
+        val socialID = SocialProviderID(socialInfo.id, socialInfo.type)
 
-            socialProviderRepository.findByIdOrNull(socialID)
-        }
+        val socialProvider = socialProviderRepository.findByIdOrNull(socialID) ?: TODO("conflict, not found social provider, throw exception")
 
-        val socialProvider = result.await();
-
-        val jwtToken = socialProvider?.let {
-            val userPrinciple = UserPrinciple(it.user.id, RoleAdapter(it.user.role))
+        return socialProvider.run {
+            val userPrinciple = UserPrinciple(user.id, RoleAdapter(user.role))
             tokenProvider.createToken(userPrinciple)
-        } ?: {
-            TODO("conflict, not found social provider, throw exception")
-        };
-
-        jwtToken;
+        }.let {
+            TokenResponse(it)
+        }
     }
 }
