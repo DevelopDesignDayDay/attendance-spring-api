@@ -7,7 +7,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL57Dialect
     database: mysql
-    generate-ddl: true
+    generate-ddl: false
     hibernate:
       ddl-auto: validate
       naming:
