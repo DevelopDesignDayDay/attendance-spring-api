@@ -39,7 +39,7 @@ data class User(
     @Column(length = 30, nullable = false)
     var position: UserPosition,
 
-    @Column(nullable = false)
+    @Column(name = "generation_id", nullable = false)
     var generationID: Int,
 
     @Column(length = 20, nullable = false)

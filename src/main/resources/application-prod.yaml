@@ -12,6 +12,7 @@ spring:
       ddl-auto: validate
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+      use-new-id-generator-mappings: false
     properties:
       hibernate:
         format_sql: true

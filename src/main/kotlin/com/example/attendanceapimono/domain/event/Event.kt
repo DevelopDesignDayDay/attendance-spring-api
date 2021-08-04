@@ -14,7 +14,7 @@ class Event(
     @Column(columnDefinition = "CHAR(36)")
     val id: UUID,
 
-    @Column(nullable = false)
+    @Column(name = "generation_id", nullable = false)
     var generationID: Int,
 
     @Column(length = 255, nullable = false)
@@ -29,10 +29,10 @@ class Event(
     @Column(nullable = false)
     val expectedAt: LocalDateTime,
 
-    @Column(nullable = false)
+    @Column(name = "late_diff_min", nullable = false)
     var lateDiffMinutes: Int,
 
-    @Column(nullable = false)
+    @Column(name = "absent_diff_min", nullable = false)
     var absentDiffMinutes: Int,
 
     @Column(nullable = false)
