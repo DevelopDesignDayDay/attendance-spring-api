@@ -1,6 +1,5 @@
 package com.example.attendanceapimono.adapter.infra.security
 
-import com.example.attendanceapimono.constant.SecurityConst
 import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContext
@@ -15,7 +14,7 @@ class SecurityContextRepository(
     private val authenticationManager: AuthenticationManager) : ServerSecurityContextRepository {
 
     override fun save(exchange: ServerWebExchange?, context: SecurityContext?): Mono<Void> {
-        throw UnsupportedOperationException("Not supported yet.");
+        throw UnsupportedOperationException("Not supported yet.")
     }
 
     override fun load(exchange: ServerWebExchange): Mono<SecurityContext> {

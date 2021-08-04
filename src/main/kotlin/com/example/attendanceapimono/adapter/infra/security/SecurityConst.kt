@@ -1,4 +1,4 @@
-package com.example.attendanceapimono.constant
+package com.example.attendanceapimono.adapter.infra.security
 
 object SecurityConst {
     const val BEARER = "Bearer "

@@ -36,8 +36,6 @@ class SecurityConfig(
     fun securityWebFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
 
         return http
-//            .exceptionHandling()
-
             .csrf().disable()
             .formLogin().disable()
             .httpBasic().disable()
