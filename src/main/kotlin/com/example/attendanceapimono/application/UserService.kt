@@ -1,6 +1,11 @@
 package com.example.attendanceapimono.application
 
+import com.example.attendanceapimono.adapter.infra.security.RoleAdapter
+import com.example.attendanceapimono.adapter.infra.security.TokenProvider
+import com.example.attendanceapimono.adapter.infra.security.UserPrinciple
 import com.example.attendanceapimono.application.dto.user.CreateUser
+import com.example.attendanceapimono.application.dto.user.SignIn
+import com.example.attendanceapimono.application.dto.user.TokenResponse
 import com.example.attendanceapimono.domain.user.*
 import kotlinx.coroutines.*
 import org.springframework.beans.factory.annotation.Qualifier
@@ -14,8 +19,14 @@ class UserService(
     private val userRepository: UserRepository,
     private val socialProviderRepository: SocialProviderRepository,
     @Qualifier("googleAdapter")
-    private val googleAdapter: SocialAdapter
+    private val googleAdapter: SocialAdapter,
+    private val tokenProvider: TokenProvider
 ) {
+
+    private fun getSocialInfo(token: String, type: SocialType) = when (type) {
+        SocialType.GOOGLE->googleAdapter.findByToken(token)
+        SocialType.APPLE->TODO("not implemented, throw exception")
+    }
 
     @Transactional
     fun createUser(dto: CreateUser): Unit = runBlocking {
@@ -23,10 +34,7 @@ class UserService(
         listOf(
             async { userRepository.save(user) },
             async {
-                val socialInfo = when (dto.type) {
-                    SocialType.GOOGLE->googleAdapter.findByToken(dto.token)
-                    SocialType.APPLE->TODO("not implemented, throw exception")
-                }
+                val socialInfo = getSocialInfo(dto.token, dto.type)
                 val socialID = SocialProviderID(socialInfo.id, socialInfo.type)
                 socialProviderRepository
                     .findByIdOrNull(
@@ -42,5 +50,20 @@ class UserService(
                 )
             }
         ).awaitAll()
+    }
+
+    @Transactional
+    fun getUserBySocialToken(dto: SignIn): TokenResponse {
+        val socialInfo = getSocialInfo(dto.token, dto.type)
+        val socialID = SocialProviderID(socialInfo.id, socialInfo.type)
+
+        val socialProvider = socialProviderRepository.findByIdOrNull(socialID) ?: TODO("conflict, not found social provider, throw exception")
+
+        return socialProvider.run {
+            val userPrinciple = UserPrinciple(user.id, RoleAdapter(user.role))
+            tokenProvider.createToken(userPrinciple)
+        }.let {
+            TokenResponse(it)
+        }
     }
 }

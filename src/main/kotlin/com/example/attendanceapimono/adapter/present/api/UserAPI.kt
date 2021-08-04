@@ -1,6 +1,9 @@
 package com.example.attendanceapimono.adapter.present.api
 
+import antlr.Token
 import com.example.attendanceapimono.application.dto.user.CreateUser
+import com.example.attendanceapimono.application.dto.user.SignIn
+import com.example.attendanceapimono.application.dto.user.TokenResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.ExampleObject
@@ -36,4 +39,20 @@ interface UserAPI {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user")
     suspend fun createUser(@Valid @RequestBody body: Mono<CreateUser>)
+
+    @Operation(
+        summary = "로그인",
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "로그인",
+        content = [Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = Schema(implementation = TokenResponse::class),
+            examples = [ExampleObject(TokenResponse.Example)]
+        )],
+    )
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/user/login")
+    suspend fun signIn(@Valid @RequestBody body: Mono<SignIn>): TokenResponse
 }
