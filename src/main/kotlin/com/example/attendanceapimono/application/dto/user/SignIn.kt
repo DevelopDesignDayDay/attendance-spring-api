@@ -37,7 +37,7 @@ data class SignIn(
 }
 
 @Schema(
-    title = "로그인 Response",
+    title = "SignIn Token Response",
     description = "",
     example = TokenResponse.Example,
 )

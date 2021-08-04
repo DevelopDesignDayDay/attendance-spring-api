@@ -45,7 +45,12 @@ interface UserAPI {
     )
     @ApiResponse(
         responseCode = "200",
-        description = "로그인"
+        description = "로그인",
+        content = [Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = Schema(implementation = TokenResponse::class),
+            examples = [ExampleObject(TokenResponse.Example)]
+        )],
     )
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/user/login")
