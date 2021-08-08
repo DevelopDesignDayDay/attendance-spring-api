@@ -1,5 +1,8 @@
-package com.example.attendanceapimono.adapter.infra.security
+package com.example.attendanceapimono.adapter.infra.config
 
+import com.example.attendanceapimono.adapter.infra.security.AuthenticationManager
+import com.example.attendanceapimono.adapter.infra.security.PermitSet
+import com.example.attendanceapimono.adapter.infra.security.SecurityContextRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
