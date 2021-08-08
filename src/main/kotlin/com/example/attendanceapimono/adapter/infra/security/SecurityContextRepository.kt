@@ -26,7 +26,7 @@ class SecurityContextRepository(
             .filter { it.startsWith(SecurityConst.BEARER) }
             .flatMap {
                 val token = it.substring(SecurityConst.BEARER.length)
-                val auth = UsernamePasswordAuthenticationToken(token, token)
+                val auth = UsernamePasswordAuthenticationToken(null, token)
                 authenticationManager
                     .authenticate(auth)
                     .map { wrapAuth -> SecurityContextImpl(wrapAuth) }
