@@ -3,8 +3,8 @@ package com.example.attendanceapimono.application
 import com.example.attendanceapimono.adapter.infra.security.RoleAdapter
 import com.example.attendanceapimono.adapter.infra.security.TokenProvider
 import com.example.attendanceapimono.adapter.infra.security.UserPrincipal
-import com.example.attendanceapimono.application.dto.user.CreateUser
-import com.example.attendanceapimono.application.dto.user.SignIn
+import com.example.attendanceapimono.application.dto.user.CreateUserRequest
+import com.example.attendanceapimono.application.dto.user.SignInRequest
 import com.example.attendanceapimono.application.dto.user.TokenResponse
 import com.example.attendanceapimono.domain.user.*
 import kotlinx.coroutines.*
@@ -29,7 +29,7 @@ class UserService(
     }
 
     @Transactional
-    fun createUser(dto: CreateUser): Unit = runBlocking {
+    fun createUser(dto: CreateUserRequest): Unit = runBlocking {
         val user = dto.entity()
         listOf(
             async { userRepository.save(user) },
@@ -53,7 +53,7 @@ class UserService(
     }
 
     @Transactional
-    fun getUserBySocialToken(dto: SignIn): TokenResponse {
+    fun getUserBySocialToken(dto: SignInRequest): TokenResponse {
         val socialInfo = getSocialInfo(dto.token, dto.type)
         val socialID = SocialProviderID(socialInfo.id, socialInfo.type)
 
