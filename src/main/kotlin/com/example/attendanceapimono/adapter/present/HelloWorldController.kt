@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class HelloWorldController : HelloWorldAPI {
-    override suspend fun helloWorld() = ResponseEntity.ok()
+    override fun helloWorld() = ResponseEntity.ok()
         .contentType(MediaType.APPLICATION_JSON)
         .body("\"hello ddd attendance api mono world\"")
 }

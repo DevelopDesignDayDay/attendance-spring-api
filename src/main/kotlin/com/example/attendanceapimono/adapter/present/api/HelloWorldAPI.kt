@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
-import kotlinx.coroutines.flow.Flow
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -30,5 +29,5 @@ interface HelloWorldAPI {
     )
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/")
-    suspend fun helloWorld(): ResponseEntity<*>
+    fun helloWorld(): ResponseEntity<*>
 }
