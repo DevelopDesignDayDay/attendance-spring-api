@@ -56,7 +56,7 @@ class UserService(
             .let(::TokenResponse)
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     fun getUserBySocialToken(dto: SignInRequest): TokenResponse {
         val socialInfo = getSocialInfo(dto.token, dto.type)
         val socialID = SocialProviderID(socialInfo.id, socialInfo.type)
