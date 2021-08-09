@@ -2,7 +2,7 @@ package com.example.attendanceapimono.application
 
 import com.example.attendanceapimono.adapter.infra.security.RoleAdapter
 import com.example.attendanceapimono.adapter.infra.security.TokenProvider
-import com.example.attendanceapimono.adapter.infra.security.UserPrinciple
+import com.example.attendanceapimono.adapter.infra.security.UserPrincipal
 import com.example.attendanceapimono.application.dto.user.CreateUser
 import com.example.attendanceapimono.application.dto.user.SignIn
 import com.example.attendanceapimono.application.dto.user.TokenResponse
@@ -60,7 +60,7 @@ class UserService(
         val socialProvider = socialProviderRepository.findByIdOrNull(socialID) ?: TODO("conflict, not found social provider, throw exception")
 
         return socialProvider.run {
-            val userPrinciple = UserPrinciple(user.id, RoleAdapter(user.role))
+            val userPrinciple = UserPrincipal(user.id, listOf(RoleAdapter(user.role)))
             tokenProvider.createToken(userPrinciple)
         }.let {
             TokenResponse(it)

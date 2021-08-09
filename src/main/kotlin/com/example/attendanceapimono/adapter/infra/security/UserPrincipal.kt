@@ -1,20 +1,29 @@
 package com.example.attendanceapimono.adapter.infra.security
 
 import com.example.attendanceapimono.domain.user.UserRole
+import com.example.attendanceapimono.util.tryOrNull
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import java.util.*
 
 data class RoleAdapter(val role: UserRole): GrantedAuthority {
-    override fun getAuthority() = this.role.name
+
+    override fun getAuthority() = role.name
+
+    companion object {
+        fun valueOf(role: String): RoleAdapter? {
+            return tryOrNull { UserRole.valueOf(role) }
+                ?.let { RoleAdapter(it) }
+        }
+    }
 }
 
-class UserPrinciple(
+class UserPrincipal(
     val id: UUID,
-    var role: RoleAdapter = RoleAdapter(UserRole.MEMBER)
-): UserDetails {
+    val roles: List<RoleAdapter>
+) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return mutableListOf(role)
+        return roles.toMutableList()
     }
 
     override fun getPassword(): String = ""
