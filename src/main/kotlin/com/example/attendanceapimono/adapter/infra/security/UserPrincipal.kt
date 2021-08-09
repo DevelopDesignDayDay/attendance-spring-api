@@ -11,9 +11,8 @@ data class RoleAdapter(val role: UserRole): GrantedAuthority {
     override fun getAuthority() = role.name
 
     companion object {
-        fun valueOf(role: String): RoleAdapter? {
-            return tryOrNull { UserRole.valueOf(role) }
-                ?.let { RoleAdapter(it) }
+        fun valueOf(role: String) = tryOrNull {
+            RoleAdapter(UserRole.valueOf(role))
         }
     }
 }

@@ -29,7 +29,7 @@ class TokenProvider(authConfig: AuthProperties) {
 
         return Jwts.builder()
             .setSubject(userDetails.username)
-            .addClaims(mapOf(SecurityConst.CLAIMS_ROLE to userDetails.authorities))
+            .addClaims(mapOf(SecurityConst.CLAIMS_ROLE to userDetails.authorities.map { it.authority }))
             .setIssuer(SecurityConst.ADDRESS_URL)
             .setIssuedAt(now)
             .setExpiration(expiredDate)
