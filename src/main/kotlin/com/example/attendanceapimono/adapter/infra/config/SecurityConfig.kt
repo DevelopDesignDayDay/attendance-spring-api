@@ -22,8 +22,6 @@ class SecurityConfig(
     private val permitAllUrls = listOf(
         PermitSet(HttpMethod.GET, "/favicon.ico"),
 
-        PermitSet(HttpMethod.GET, "/oauth2/v3/tokeninfo"),
-
         PermitSet(HttpMethod.POST, "/user"),
         PermitSet(HttpMethod.POST, "/user/login"),
 
@@ -38,8 +36,9 @@ class SecurityConfig(
     @Bean
     fun securityWebFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
 
-        return http
+        return http.cors().and()
             .csrf().disable()
+            .headers().frameOptions().disable().and()
             .formLogin().disable()
             .httpBasic().disable()
             .authenticationManager(authenticationManager)
