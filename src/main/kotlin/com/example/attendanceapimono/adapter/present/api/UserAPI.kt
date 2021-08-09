@@ -31,9 +31,13 @@ interface UserAPI {
         ])
     )
     @ApiResponse(
-        responseCode = "201",
+        responseCode = "200",
         description = "일반 참가자 생성",
-        content = [Content(examples = [ExampleObject("")])],
+        content = [Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = Schema(implementation = TokenResponse::class),
+            examples = [ExampleObject(TokenResponse.Example)]
+        )],
     )
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user")
