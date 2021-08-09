@@ -29,7 +29,7 @@ class UserService(
     }
 
     @Transactional
-    fun createUser(dto: CreateUserRequest): Unit = runBlocking {
+    fun createUser(dto: CreateUserRequest): TokenResponse = runBlocking {
         val user = dto.entity()
         listOf(
             async { userRepository.save(user) },
@@ -50,6 +50,10 @@ class UserService(
                 )
             }
         ).awaitAll()
+
+        UserPrincipal(user.id, listOf(RoleAdapter(user.role)))
+            .let(tokenProvider::createToken)
+            .let(::TokenResponse)
     }
 
     @Transactional
