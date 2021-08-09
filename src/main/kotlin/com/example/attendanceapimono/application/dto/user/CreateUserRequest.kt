@@ -2,22 +2,18 @@ package com.example.attendanceapimono.application.dto.user
 
 import com.example.attendanceapimono.domain.user.*
 import io.swagger.v3.oas.annotations.media.Schema
-import lombok.extern.slf4j.Slf4j
 import org.hibernate.validator.constraints.Length
 import java.time.LocalDateTime
 import java.util.*
-import javax.persistence.Column
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotEmpty
 
 @Schema(
     title = "회원가입",
     description = "",
-    example = CreateUser.Example,
+    example = CreateUserRequest.Example,
 )
-data class CreateUser(
+data class CreateUserRequest(
     @Schema(description = "소셜 토큰")
     @field:NotEmpty
     val token: String,
