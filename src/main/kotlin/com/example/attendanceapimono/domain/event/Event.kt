@@ -21,10 +21,10 @@ class Event(
     var title: String,
 
     @Column(length = 500, nullable = false)
-    var description: String,
+    var description: String = "",
 
     @Column(nullable = false)
-    var isDone: Boolean,
+    var isDone: Boolean = false,
 
     @Column(nullable = false)
     val expectedAt: LocalDateTime,
@@ -36,7 +36,7 @@ class Event(
     var absentDiffMinutes: Int,
 
     @Column(nullable = false)
-    val startAt: LocalDateTime,
+    var startAt: LocalDateTime,
 
     @Column(nullable = false)
     val createdAt: LocalDateTime,
