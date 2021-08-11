@@ -6,8 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime
 
 @Schema(
-    title = "이벤트 등록",
-    description = "새로운 이벤트를 등록합니다.",
+    title = "이벤트 등록 요청",
+    description = "새로운 이벤트를 등록할 때 필요한 Body에 대한 DTO입니다.",
     example = CreateEventRequest.Example
 )
 class CreateEventRequest(
