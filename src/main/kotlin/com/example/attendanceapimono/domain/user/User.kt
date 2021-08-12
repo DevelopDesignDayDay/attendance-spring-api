@@ -12,7 +12,13 @@ enum class UserState {
 }
 
 enum class UserRole {
-    MASTER, STAFF, MEMBER
+    MASTER, STAFF, MEMBER;
+
+    val isManager: Boolean
+        get() = when (this) {
+            MASTER, STAFF -> true
+            else -> false
+        }
 }
 
 enum class UserPosition {

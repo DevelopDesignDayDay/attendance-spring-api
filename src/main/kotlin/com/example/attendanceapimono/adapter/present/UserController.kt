@@ -3,9 +3,11 @@ package com.example.attendanceapimono.adapter.present
 import com.example.attendanceapimono.adapter.present.api.UserAPI
 import com.example.attendanceapimono.application.UserService
 import com.example.attendanceapimono.application.dto.user.CreateUserRequest
+import com.example.attendanceapimono.application.dto.user.ReSignResponse
 import com.example.attendanceapimono.application.dto.user.SignInRequest
 import com.example.attendanceapimono.application.dto.user.TokenResponse
 import com.example.attendanceapimono.application.exception.handleValidationCatch
+import com.example.attendanceapimono.util.httpOk
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.ExampleObject
@@ -24,10 +26,10 @@ import java.util.*
 
 @RestController
 class UserController(private val userService: UserService) : UserAPI {
-    override suspend fun createUser(body: Mono<CreateUserRequest>) {
-        body.handleValidationCatch()
+    override suspend fun createUser(body: Mono<CreateUserRequest>): ResponseEntity<Mono<TokenResponse>> {
+        return body.handleValidationCatch()
             .map(userService::createUser)
-            .awaitSingle()
+            .httpOk()
     }
 
     override suspend fun signIn(body: Mono<SignInRequest>): TokenResponse {
@@ -36,30 +38,10 @@ class UserController(private val userService: UserService) : UserAPI {
              .awaitSingle()
     }
 
-
-    //TODO need delete
-    @Operation(
-        summary = "엑세스 토큰 테스트",
-        description = "엑세스 토큰 테스트 및 컨트롤러 파라미터 user id 인자로 넣어주는거 테스트",
-    )
-    @SecurityRequirement(name = "signedTokenV1")
-    @ApiResponse(
-        responseCode = "200",
-        description = "토큰 테스트 성공",
-        content = [
-            Content(
-                mediaType = MediaType.APPLICATION_JSON_VALUE,
-                schema = Schema(type = "string", format = "uuid"),
-                examples = [ExampleObject("\"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\"")]
-            )
-        ],
-    )
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/test-principal")
-    fun testLoginUserID(@LoginUserID id: UUID): ResponseEntity<String> {
-        return ResponseEntity.ok()
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("\"$id\"")
+    override suspend fun reSign(userID: UUID): ResponseEntity<Mono<ReSignResponse>> {
+        return Mono.just(userID)
+            .map(userService::reSignByID)
+            .httpOk()
     }
 }
 
