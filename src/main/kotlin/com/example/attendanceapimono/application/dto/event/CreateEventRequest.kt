@@ -1,9 +1,12 @@
 package com.example.attendanceapimono.application.dto.event
 
+import com.example.attendanceapimono.domain.event.Event
 import io.swagger.v3.oas.annotations.media.Schema
 import org.hibernate.validator.constraints.Length
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime
+import java.util.*
 
 @Schema(
     title = "이벤트 등록 요청",
@@ -26,12 +29,26 @@ class CreateEventRequest(
     @field:DateTimeFormat
     val expectedAt: String,
 
+    @Value("\${event.late-diff-minute}")
     @Schema(description = "지각 기준 시간 (분)")
     val lateDiffMinute: Int,
 
+    @Value("\${event.absent-diff-minute}")
     @Schema(description = "결석 기준 시간 (분)")
     val absentDiffMinute: Int
 ) {
+    fun entity() = Event (
+        id = UUID.randomUUID(),
+        generationID = this.generationID,
+        title = this.title,
+        description = this.description,
+        expectedAt = LocalDateTime.parse(this.expectedAt),
+        lateDiffMinutes = this.lateDiffMinute,
+        absentDiffMinutes = this.absentDiffMinute,
+        createdAt = LocalDateTime.now(),
+        updatedAt = LocalDateTime.now()
+    )
+
     companion object {
         const val Example = """
             {
