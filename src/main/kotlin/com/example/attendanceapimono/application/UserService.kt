@@ -3,15 +3,15 @@ package com.example.attendanceapimono.application
 import com.example.attendanceapimono.adapter.infra.security.RoleAdapter
 import com.example.attendanceapimono.adapter.infra.security.TokenProvider
 import com.example.attendanceapimono.adapter.infra.security.UserPrincipal
-import com.example.attendanceapimono.application.dto.user.CreateUserRequest
-import com.example.attendanceapimono.application.dto.user.SignInRequest
-import com.example.attendanceapimono.application.dto.user.TokenResponse
+import com.example.attendanceapimono.application.dto.user.*
+import com.example.attendanceapimono.application.exception.UserNotFoundException
 import com.example.attendanceapimono.domain.user.*
 import kotlinx.coroutines.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 
 @Service
@@ -51,8 +51,7 @@ class UserService(
             }
         ).awaitAll()
 
-        UserPrincipal(user.id, listOf(RoleAdapter(user.role)))
-            .let(tokenProvider::createToken)
+        generateJwtToken(user)
             .let(::TokenResponse)
     }
 
@@ -70,4 +69,14 @@ class UserService(
             TokenResponse(it)
         }
     }
+
+    @Transactional(readOnly = true)
+    fun reSignByID(userID: UUID) = runBlocking {
+        val user = userRepository.findByIdOrNull(userID) ?: throw UserNotFoundException()
+        ReSignResponse(generateJwtToken(user), user.role.isManager)
+    }
+
+    private fun generateJwtToken(user: User) =
+        UserPrincipal(user.id, listOf(RoleAdapter(user.role)))
+            .let(tokenProvider::createToken)
 }
