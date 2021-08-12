@@ -30,6 +30,20 @@ data class ErrorResponse(
                 "errorMsg": "string"
             }
         """
+
+        const val SocialProviderNotFound = """
+            {
+                "errorMsg": "social provider not found",
+                "errorCode": 11
+            }
+        """
+
+        const val UserExists = """
+            {
+                "errorMsg": "user exists",
+                "errorCode": 101
+            }
+        """
     }
 }
 
