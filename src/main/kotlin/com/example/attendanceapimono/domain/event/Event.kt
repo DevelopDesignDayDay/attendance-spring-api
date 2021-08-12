@@ -36,7 +36,7 @@ class Event(
     var absentDiffMinutes: Int,
 
     @Column(nullable = false)
-    var startAt: LocalDateTime? = null,
+    var startAt: LocalDateTime,
 
     @Column(nullable = false)
     val createdAt: LocalDateTime,

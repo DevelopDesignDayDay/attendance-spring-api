@@ -43,6 +43,7 @@ class CreateEventRequest(
         title = this.title,
         description = this.description,
         expectedAt = LocalDateTime.parse(this.expectedAt),
+        startAt = LocalDateTime.parse(this.expectedAt),
         lateDiffMinutes = this.lateDiffMinute,
         absentDiffMinutes = this.absentDiffMinute,
         createdAt = LocalDateTime.now(),
