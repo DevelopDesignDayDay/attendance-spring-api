@@ -4,6 +4,8 @@ import com.example.attendanceapimono.adapter.infra.security.RoleAdapter
 import com.example.attendanceapimono.adapter.infra.security.TokenProvider
 import com.example.attendanceapimono.adapter.infra.security.UserPrincipal
 import com.example.attendanceapimono.application.dto.user.*
+import com.example.attendanceapimono.application.exception.SocialProviderNotFoundException
+import com.example.attendanceapimono.application.exception.UserExistsException
 import com.example.attendanceapimono.application.exception.UserNotFoundException
 import com.example.attendanceapimono.domain.user.*
 import kotlinx.coroutines.*
@@ -40,7 +42,7 @@ class UserService(
                     .findByIdOrNull(
                         socialID
                     )?.run {
-                        TODO("conflict, exists social provider, throw exception")
+                        throw UserExistsException()
                     }
                 socialProviderRepository.save(
                     SocialProvider(
@@ -60,7 +62,7 @@ class UserService(
         val socialInfo = getSocialInfo(dto.token, dto.type)
         val socialID = SocialProviderID(socialInfo.id, socialInfo.type)
 
-        val socialProvider = socialProviderRepository.findByIdOrNull(socialID) ?: TODO("conflict, not found social provider, throw exception")
+        val socialProvider = socialProviderRepository.findByIdOrNull(socialID) ?: throw SocialProviderNotFoundException()
 
         return socialProvider.run {
             val userPrinciple = UserPrincipal(user.id, listOf(RoleAdapter(user.role)))
