@@ -40,5 +40,5 @@ interface EventAPI {
     )
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/event")
-    suspend fun createUser(@Valid @RequestBody body: Mono<CreateEventRequest>): CreateEventResponse
+    suspend fun createEvent(@Valid @RequestBody body: Mono<CreateEventRequest>): CreateEventResponse
 }
