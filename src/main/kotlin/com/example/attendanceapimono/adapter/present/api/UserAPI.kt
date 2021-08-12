@@ -74,10 +74,11 @@ interface UserAPI {
         description = "토큰 체크 및 재생성 하는 기능",
         content = [Content(
             mediaType = MediaType.APPLICATION_JSON_VALUE,
-            schema = Schema(implementation = TokenResponse::class),
-            examples = [ExampleObject(TokenResponse.Example)]
+            schema = Schema(implementation = ReSignResponse::class),
+            examples = [ExampleObject(ReSignResponse.Example)]
         )],
     )
+    @JWTTokenV1
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/token")
     suspend fun reSign(@LoginUserID userID: UUID): ResponseEntity<Mono<ReSignResponse>>
