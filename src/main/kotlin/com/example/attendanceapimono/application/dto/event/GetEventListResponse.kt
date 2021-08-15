@@ -3,15 +3,27 @@ package com.example.attendanceapimono.application.dto.event
 import com.example.attendanceapimono.domain.event.Event
 import io.swagger.v3.oas.annotations.media.Schema
 
+@Schema(description = "이벤트 리스트")
+class EventList(
+    @Schema(description = "이벤트 리스트의 데이터입니다.")
+    val data: List<Event>,
+
+    @Schema(description = "이벤트의 전체 개수입니다.")
+    val count: Int
+)
+
 @Schema(
     title = "이벤트 리스트 가져오기",
     description = "이벤트 리스트를 가져왔을 때 Response에 대한 DTO입니다.",
     example = GetEventListResponse.Example
 )
 class GetEventListResponse (
-    @Schema(description = "이벤트 리스트")
-    val events: List<Event>
+    private val data: List<Event>,
+    private val count: Int
 ) {
+    @Schema(description = "이벤트 리스트")
+    val events = EventList(data, count)
+
     companion object {
         const val Example = """
             {
