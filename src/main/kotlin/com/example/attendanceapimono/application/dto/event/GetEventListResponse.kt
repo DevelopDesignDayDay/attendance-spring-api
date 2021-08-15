@@ -27,34 +27,37 @@ class GetEventListResponse (
     companion object {
         const val Example = """
             {
-                "events": [
-                    {
-                        "id": "123e4567-e89b-12d3-a456-426614174000",
-                        "generationID": 6,
-                        "title": "오리엔테이션",
-                        "description": "함께 모여 앞으로의 방향에 대해 이야기 나눠 보아요.",
-                        "isDone": true,
-                        "expectedAt": "2021-08-21T14:00:00.000",
-                        "lateDiffMinute": 10,
-                        "absentDiffMinute": 60,
-                        "startAt": "2021-08-21T14:03:24.247",
-                        "createdAt": "2021-08-16T11:24:25.243",
-                        "updatedAt": "2021-08-16T11:24:25.243"
-                    },
-                    {
-                        "id": "123e4567-e89b-12d3-a456-426614174000",
-                        "generationID": 6,
-                        "title": "오리엔테이션",
-                        "description": "함께 모여 앞으로의 방향에 대해 이야기 나눠 보아요.",
-                        "isDone": true,
-                        "expectedAt": "2021-08-21T14:00:00.000",
-                        "lateDiffMinute": 10,
-                        "absentDiffMinute": 60,
-                        "startAt": "2021-08-21T14:03:24.247",
-                        "createdAt": "2021-08-16T11:24:25.243",
-                        "updatedAt": "2021-08-16T11:24:25.243"
-                    }
-                ]
+                "events": {
+                    "count": 13,
+                    "data": [
+                        {
+                            "id": "123e4567-e89b-12d3-a456-426614174000",
+                            "generationID": 6,
+                            "title": "오리엔테이션",
+                            "description": "함께 모여 앞으로의 방향에 대해 이야기 나눠 보아요.",
+                            "isDone": true,
+                            "expectedAt": "2021-08-21T14:00:00.000",
+                            "lateDiffMinute": 10,
+                            "absentDiffMinute": 60,
+                            "startAt": "2021-08-21T14:03:24.247",
+                            "createdAt": "2021-08-16T11:24:25.243",
+                            "updatedAt": "2021-08-16T11:24:25.243"
+                        },
+                        {
+                            "id": "123e4567-e89b-12d3-a456-426614174000",
+                            "generationID": 6,
+                            "title": "오리엔테이션",
+                            "description": "함께 모여 앞으로의 방향에 대해 이야기 나눠 보아요.",
+                            "isDone": true,
+                            "expectedAt": "2021-08-21T14:00:00.000",
+                            "lateDiffMinute": 10,
+                            "absentDiffMinute": 60,
+                            "startAt": "2021-08-21T14:03:24.247",
+                            "createdAt": "2021-08-16T11:24:25.243",
+                            "updatedAt": "2021-08-16T11:24:25.243"
+                        }
+                    ]
+                }
             }
         """
     }
