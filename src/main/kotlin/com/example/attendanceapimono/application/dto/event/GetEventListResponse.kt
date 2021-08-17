@@ -9,7 +9,7 @@ class EventList(
     val data: List<Event>,
 
     @Schema(description = "이벤트의 전체 개수입니다.")
-    val count: Int
+    val count: Long
 )
 
 @Schema(
@@ -19,7 +19,7 @@ class EventList(
 )
 class GetEventListResponse (
     private val data: List<Event>,
-    private val count: Int
+    private val count: Long
 ) {
     @Schema(description = "이벤트 리스트")
     val events = EventList(data, count)
