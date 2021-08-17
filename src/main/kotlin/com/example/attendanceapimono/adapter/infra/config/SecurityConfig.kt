@@ -22,6 +22,7 @@ class SecurityConfig(
     private val permitAllUrls = listOf(
         PermitSet(HttpMethod.GET, "/favicon.ico"),
 
+        PermitSet(HttpMethod.GET, "/event"),
         PermitSet(HttpMethod.POST, "/event"),
 
         PermitSet(HttpMethod.POST, "/user"),
