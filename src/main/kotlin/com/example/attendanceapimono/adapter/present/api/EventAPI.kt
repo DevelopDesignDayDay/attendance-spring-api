@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -39,6 +40,8 @@ interface EventAPI {
         )],
     )
     @ResponseStatus(HttpStatus.CREATED)
+    @JWTTokenV1
+    @PreAuthorize("hasRole('MASTER') or  hasRole('STAFF')")
     @PostMapping("/event")
     suspend fun createEvent(@Valid @RequestBody body: Mono<CreateEventRequest>): CreateEventResponse
 }
