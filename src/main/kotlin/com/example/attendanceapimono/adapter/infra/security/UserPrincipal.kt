@@ -19,7 +19,7 @@ data class RoleAdapter(val role: UserRole): GrantedAuthority {
 
 class UserPrincipal(
     val id: UUID,
-    val roles: List<RoleAdapter>
+    private val roles: List<RoleAdapter>
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return roles.toMutableList()

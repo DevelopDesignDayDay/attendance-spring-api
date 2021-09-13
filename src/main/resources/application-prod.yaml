@@ -19,3 +19,6 @@ spring:
 jwt:
   secret: ${JWT_SECRET}
   expires: ${JWT_EXPIRES}
+event:
+  late-diff-minute: ${DDD_LATE_DIFF_MINUTE}
+  absent-diff-minute: ${DDD_ABSENT_DIFF_MINUTE}
